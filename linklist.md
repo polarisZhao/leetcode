@@ -55,7 +55,7 @@
 
 #### (2) 典型例题
 
-<img src="/Users/tal/Documents/note/md/z_img/leetcode-ds/linklist.png" style="zoom:50%;" />
+<img src="./z_img/linklist.png" style="zoom:50%;" />
 
 ### 题型一：翻转链表
 

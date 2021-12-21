@@ -39,17 +39,119 @@
   - 考虑如何利用子树的结果来获取当前的结果
   - 在前面添加上退出条件
 
+借助与二叉树来理解 DFS & BFS 的思想
+
+
+
+
+
+~~~cpp
+Template 1: Traverse
+
+public class Solution {
+    public void traverse(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        // do something with root
+        traverse(root.left);
+        // do something with root
+        traverse(root.right);
+        // do something with root
+    }
+}
+
+
+Tempate 2: Divide & Conquer
+
+public class Solution {
+    public ResultType traversal(TreeNode root) {
+        // null or leaf
+        if (root == null) {
+            // do something and return;
+        }
+        
+        // Divide
+        ResultType left = traversal(root.left);
+        ResultType right = traversal(root.right);
+        
+        // Conquer
+        ResultType result = Merge from left and right.
+        return result;
+    }
+}
+~~~
+
+
+
+
+
+~~~
+public class Solution {
+    public ArrayList<ArrayList<Integer>> levelOrder(TreeNode root) {
+        ArrayList result = new ArrayList();
+        
+        if (root == null)
+            return result;
+            
+        Queue<TreeNode> queue = new LinkedList<TreeNode>();
+        queue.offer(root);
+        
+        while (!queue.isEmpty()) {
+            ArrayList<Integer> level = new ArrayList<Integer>();
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode head = queue.poll();
+                level.add(head.val);
+                if (head.left != null)
+                    queue.offer(head.left);
+                if (head.right != null)
+                    queue.offer(head.right);
+            }
+            result.add(level);
+        }
+        
+        return result;
+    }
+}
+~~~
+
 
 
 
 
 #### （2）常见题目
 
-- [遍历] 前序、中序、后序、层序遍历(常规、按层、之字型)   | 要求递归和迭代均会
-- [性质判定]  最大深度、最小深度、对称二叉树、翻转二叉树、相同的树、平衡树、左叶子之和
+##### 1. 基本遍历
+
+- [遍历] 前序 (二叉树展开为链表)、中序(第k大的节点、是否是BST)、后序、层序遍历(常规、按层、之字型、右视图、二叉树的宽度、左叶子之和)   | 要求递归和迭代均会
+
+前序：
+
+中序：
+
+后序：
+
+层序：
+
+##### 2. 分治思想的应用
+
+(1) 根节点的这个问题， 和子节点(左子树 & 右子树)是什么关系
+
+(2) 递归退出的条件
+
+- [性质判定]  最大深度、最小深度、平衡树、相同的树、对称二叉树、翻转二叉树
 - [公共祖先]  最近公共祖先(二叉树、二叉搜索树)
+- 
+
+##### 3、BFS 和 DFS 的应用
+
 - [路径和]  二叉树的路径和、所有路径、最大路径
 - [vector 和 tree 交互] 序列化和反序列化二叉树、有序链表重建二叉搜索树、重建二叉树
+
+
+
+合并二叉树、二叉树节点的插入和删除
 
 
 
@@ -478,6 +580,20 @@ private:
 ##### [572. 另一棵树的子树](https://leetcode-cn.com/problems/subtree-of-another-tree/)
 
 ~~~cpp
+bool isSameTree(TreeNode* r1, TreeNode* r2){
+    if(r1 == NULL && r2 == NULL) return true;
+    if(r1 == NULL || r2 == NULL) return false;
+
+    return r1 -> val == r2 -> val &&
+            isSameTree(r1->left, r2->left) &&
+            isSameTree(r1->right, r2->right);
+}
+bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+    if(root == NULL ) return false;
+    
+    return isSameTree(root, subRoot) || 
+            isSubtree(root->left, subRoot) ||  isSubtree(root->right, subRoot);
+}
 ~~~
 
 
@@ -742,6 +858,8 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 #### 6. 二叉搜索树
 
 ##### [450. 删除二叉搜索树中的节点](https://leetcode-cn.com/problems/delete-node-in-a-bst/)
+
+
 
 
 
